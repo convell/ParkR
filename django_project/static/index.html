@@ -1,0 +1,141 @@
+{% load staticfiles %}
+{% include 'head.html' %}
+
+  {% block title %}<title>ParkR</title>{% endblock %}
+  <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}">
+</head>
+<body>
+
+{% include 'nav.html' %}
+
+<div id="titleBox">
+  <h1 style="padding-bottom:10px;">Welcome to Park'R</h1>
+  {% if user != "NULL" %}
+    <a href="/accounts/profile/" class="tbLink">Profile</a>
+    <a href="/messenger" class="tbLink">Messenger</a>
+    <a href="/logout" class="tbLink">Logout</a>
+  {% else %}
+    <a href="/login" class="tbLink">Login</a>
+    <a href="/signup" class="tbLink">Register</a>
+  {% endif %}
+</div>
+
+  {% block sidebar %}<!-- insert default navigation text for every page -->{% endblock %}
+  {% block content %}<!-- default content text (typically empty) -->{% endblock %}
+    <p id="find">
+      Find a parking space
+      <input id="toSearch" type="text" placeholder="enter a location"/>
+    </p>
+    <div id="map"></div>
+    <br>
+    <script>
+/*
+      function initMap() {
+        varreno = {lat:39.5296, lng: -119.8138};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: reno
+        });
+*/
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 39.53, lng: -119.814972},
+          zoom: 13,
+          mapTypeId: 'roadmap'
+        });
+            markerList = {{djangoMapMarkers|safe}};
+            noteList = {{notes|safe}};
+            var markers=[];
+            var infowindows=[];
+            for (i = 0; i < markerList.length; i++)
+            {
+            infowindows[i] = new google.maps.InfoWindow({
+                content:noteList[i]+'<p><a href="/reserveThisSpace/">Reserve This Space!</a></p>'
+            });
+            markers[i] = new google.maps.Marker(
+                {
+                position: markerList[i],
+                map: map
+                });
+            markers[i].index = i;
+            markers[i].loc=markerList[i]
+            google.maps.event.addListener(markers[i], 'mouseover', function()
+                {
+                    map.panTo(this.getPosition());
+                    infowindows[this.index].open(this.map,this);
+                });
+            console.log(markerList[i])
+            }
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('toSearch');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+        
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+          markerList = {{djangoMapMarkers|safe}}
+          for (i = 0; i < markerList.length; i++){
+              var marker = new google.maps.Marker({
+                position: markerList[i],
+                map: map
+            });
+          }
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKxkOpSQbOBYK8xQ5mZptVCmmVO0Wvlk4&callback=initMap&libraries=places">
+    </script>
+</body>
+</html>

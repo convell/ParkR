@@ -1,0 +1,30 @@
+@media (max-width: 600px) {
+    #prof {
+        width: 300px !important;
+    }
+}
+
+#prof {
+    width: 500px;
+    padding: 30px;
+    background: #FFFFFF;
+    margin: 50px auto;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
+}
+
+#prof p {
+    background: rgba(89, 24, 24, 0.9);
+    padding: 10px 0;
+    width: 250px;
+    transition: background 0.2s ease;
+}
+
+#prof p:hover {
+    background: rgb(89, 24, 24);
+}
+
+#prof a {
+    color: white;
+}

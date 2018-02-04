@@ -1,0 +1,109 @@
+<style>
+@media (max-width: 600px) {
+    #myNav a {
+        display: none !important;
+    }
+    #btnMenu {
+         display: block !important;
+    }
+}
+
+body {
+    margin: 0;
+}
+
+a, a:hover, a:active {
+    text-decoration: none;
+}
+
+
+#myNav {
+    overflow: hidden;
+    min-height:55px;
+}
+
+#myNav a {
+    float: right;
+    display: block;
+    color: #727272;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 19px;
+    transition: color 0.2s ease;
+}
+
+#myNav a:hover {
+    color: black;
+}
+
+.active {
+    color: black !important;
+}
+
+#myNav .icon {
+    display: none;
+}
+
+/* SAMPLE HAMBURGER MENU */
+#btnMenu{
+  display: none;
+  background:none;
+  position:absolute;
+  top:0;
+  left:0;
+  line-height:45px;
+  padding:5px 15px 0px 15px;
+  color:#999;
+  border:0;
+  font-size:1.4em;
+  font-weight:bold;
+  cursor:pointer;
+  outline:none;
+  z-index:10000000000000;
+}
+
+#myHamburger{margin-top:-1px; z-index:1000000; font-weight:bold; font-size:0.8em; width:100%; background:#f1f1f1;  position:absolute; text-align:center; font-size:12px;}
+#myHamburger ul {margin: 0; padding: 0; list-style-type: none; list-style-image: none;}
+#myHamburger li {display: block;   padding:15px 0 15px 0; border-bottom:#dddddd 1px solid;}
+#myHamburger li:hover{display: block;    background:#ffffff; padding:15px 0 15px 0; border-bottom:#dddddd 1px solid;}
+#myHamburger ul li a { text-decoration:none;  margin: 0px; color:#666;}
+#myHamburger ul li a:hover {  color: #666; text-decoration:none;}
+#myHamburger a{text-decoration:none; color:#666;}
+#myHamburger a:hover{text-decoration:none; color:#666;}
+
+.glyphicon-home{
+  color:white; 
+  font-size:1.5em; 
+  margin-top:5px; 
+  margin:0 auto;
+}
+
+</style>
+
+<div id="myNav">
+  <a href="/" style="float:left;">logo</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+  <a href="#features">Features</a>
+  <a href="/" class="active">Home</a>
+  <button id="btnMenu">&#9776;</button>
+</div>
+
+<div id="myHamburger">
+  <ul>
+    <a href="/"><li>Home</li></a>
+    <a href="#features"><li>Features</li></a>
+    <a href="#about"><li>About</li></a>
+    <a href="#contact"><li>Contact</li></a>
+  </ul>
+</div> 
+
+<script>
+  $(document).ready(function() {
+    $( "#myHamburger" ).hide();
+    $( "#btnMenu" ).click(function() {
+      $( "#myHamburger" ).slideToggle("slow");
+    });
+  });
+</script>

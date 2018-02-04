@@ -1,0 +1,27 @@
+{% load staticfiles %}
+{% include 'head.html' %}
+
+  <link rel="stylesheet" type="text/css" href="{% static "css/forms.css" %}">
+  <title>Park'R - Login</title>
+</head>
+<body>
+  {% include 'nav.html' %}
+
+  {% block content %}
+  <center>
+  <form method="post" class="post-form">{% csrf_token %}
+    <h1>Login</h1>
+    <br>
+    {{ form.as_p }}
+  <button type="submit" class="btnMain">Login</button>
+  </form>
+  </center>
+  {% endblock %}
+
+  <script>
+    $('label').hide();
+    $('#id_username').attr("placeholder","enter your username");
+    $('#id_password').attr("placeholder","enter your password");
+  </script>
+</body>
+</html>

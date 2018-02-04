@@ -1,0 +1,33 @@
+{% load staticfiles %}
+{% include 'head.html' %}
+
+  <link rel="stylesheet" type="text/css" href="{% static "css/forms.css" %}">
+</head>
+<body>  
+  {% include 'nav.html' %}
+
+  {% block content %}
+  <center>
+    <form method="post" class="post-form">
+      <h1>Sign up</h1>
+      <br>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btnMain">Submit</button>
+    </form>
+  </center>
+  {% endblock %}
+
+  <script>
+    $('label').hide();
+    $('span').hide();
+    $('#id_username').attr(
+                       {"placeholder":"choose a username",
+                        "title":"30 characters or fewer. Letters, digits and @/./+/-/_ only"}
+                     );
+    $('#id_email').attr("placeholder","enter your email");
+    $('#id_password1').attr("placeholder","enter a password");
+    $('#id_password2').attr("placeholder","confirm your password");
+  </script>
+</body>
+</html>

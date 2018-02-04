@@ -1,0 +1,44 @@
+/* GLOBAL TAG MODIFIERS */
+#map {
+    margin-left: 5%;
+    height: 90%;
+    width: 90%;
+}
+
+/* INDEX STYLING */
+#titleBox {
+    height: 175px;
+    background: #bc3838;
+    padding-top: 40px;
+    color: white;
+    text-align: center;
+}
+
+.tbLink {
+    padding: 5px;
+    color: #591818;
+    border: 2px solid #591818;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    #text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.tbLink:hover {
+    border: 2px solid black;
+    color: black;
+}
+
+#find {
+  font-size: 18px;
+  text-align: center;
+}
+
+#find input, #find input:focus {
+  padding: 5px;
+  border: none;
+  outline: none;
+  -moz-box-shadow: 0 0 3px #888;
+  -webkit-box-shadow: 0 0 3px#888;
+  box-shadow: 0 0 3px #888;
+}

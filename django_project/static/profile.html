@@ -1,0 +1,32 @@
+{% load staticfiles %}
+{% include 'head.html' %}
+
+  <link rel="stylesheet" type="text/css" href="{% static "css/profile.css" %}">  
+  <title>Park'R - Account</title>
+  </head>
+<body>
+  {% include 'nav.html' %}
+
+  <center><div id="prof">
+  {% block profile %}
+    <h1>Your Account</h1>
+    <br>
+    <span>Hello {{ username }}!</span>
+    <br><br>
+    {% if noteList != "NULL" %}
+      <span style="font-weight:bold;">Your current spaces</span>
+      <ul align="left" style="text-align:left;">
+      {% for note in noteList %}
+        <li>{{note}}</li>
+      {% endfor %}
+    {% endif %}
+    </ul>
+    <br>
+    <p><a href=/reserve>List a space</a></p>
+    <p><a href=/passwordChange>Change password</a></p>
+    <p><a href=/logout>Logout</a></p>
+
+  </div></center>
+  {% endblock %}
+</body>
+</html>
