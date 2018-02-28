@@ -15,7 +15,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -29,6 +28,11 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_ROOT, "static"),
+    '/var/www/static/',
+]
 
 INSTALLED_APPS = (
     'django.contrib.admin',
