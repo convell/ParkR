@@ -2,6 +2,9 @@ version: 2
 machine:
   python:
     version: 2.7.14
+dependencies:
+  pre:
+    - pip install django
 jobs:
   build:
     working_directory: ~/circleci-demo-python-django
