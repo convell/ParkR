@@ -1,5 +1,8 @@
 version: 2
 jobs:
+  machine:
+    python:
+      version: pypy-2.2.1
   build:
     working_directory: ~/circleci-demo-python-django
     docker:
@@ -35,6 +38,3 @@ jobs:
       - store_artifacts:
           path: test-results
           destination: tr1
-machine:
-  post:
-    - pyenv global 2.7 3.4
