@@ -27,10 +27,26 @@ The best option is to start with a clean version of the repo, in order to do tha
 
 `sudo git clone https://github.com/convell/ParkR /dir/to/copy/into`
 
-You can also obtain a working copy from SSHFS as stated above. The Django code is located in the /home/Django/ directory
+You can also obtain a working copy from SSHFS as stated above. The Django code is located in the /home/Django/directory
+
+If you have not installed django before on this enviornment you will more than likely need to run:
+
+`sudo pip install django netifaces`
+
+From here you now have a working copy of django and code. We will contine in the next section on getting familar with git to save yourself the headache of rebasing the code.
 
 
 ### Git Workflow
+#### Where to start
+This section assumes you have completed the Local Workflow section. We will start work in the git clone directory. To confirm that you have cloned succesfully run `git status` and you should hopefully see a message of 
+> Your branch is up-to-date with 'origin/master'
+
+**BEFORE TOUCHING CODE:**
+
+We will need to create a new branch for development. We will try to stay off developing the main branch, and instead create feature branches in which we merge the code into [sandbox](https://github.com/convell/ParkR/tree/sandbox). So with your cloned directory, we will run `git checkout -b <nameOfBranch>` to create a LOCAL copy of the branch with the code from master (the branch you were on before the checkout command). Now to create the branch on the github repo you simply run `git push origin <nameOfBranch>`
 
 
 ### Server Workflow
+
+## Continous Integration
+https://circleci.com/team/gh/convell
