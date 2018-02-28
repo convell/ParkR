@@ -6,7 +6,7 @@ The shared parking application is introducing application as a service and shari
 
 ## Working on ParkR
 
-### SSHFS Setup
+### SSHFS Setup (use if git is a pain, but should be a last resort)
 #### OS X
 1. Install Fuse and SSH https://osxfuse.github.io/
 2. Run:
@@ -43,10 +43,32 @@ This section assumes you have completed the Local Workflow section. We will star
 
 **BEFORE TOUCHING CODE:**
 
-We will need to create a new branch for development. We will try to stay off developing the main branch, and instead create feature branches in which we merge the code into [sandbox](https://github.com/convell/ParkR/tree/sandbox). So with your cloned directory, we will run `git checkout -b <nameOfBranch>` to create a LOCAL copy of the branch with the code from master (the branch you were on before the checkout command). Now to create the branch on the github repo you simply run `git push origin <nameOfBranch>`
+We will need to create a new branch for development. We will try to stay off developing the main branch, and instead create feature branches in which we merge the code into [sandbox](https://github.com/convell/ParkR/tree/sandbox). So with your cloned directory, we will run `git checkout -b <nameOfBranch>` to create a LOCAL copy of the branch with the code from master (the branch you were on before the checkout command). Now to create the branch on the remote repo you simply run `git push origin <nameOfBranch>`
+
+
+**Setting up Pull Requests**
+![How To Pull](https://i.imgur.com/GzgzSH4.png)
+![How To Pull](https://i.imgur.com/Dfo7k3A.png)
+
+Sandbox will be a useful staging area before master. This also allows us to solve any merge conflicts before pushing to master. This is a huge deal as we do not want to have a lapse of coverage when pulling from master to the server due to merge conflicts. To maintain the most amount of uptime it is recomended to solve any conflicts and testing before using the server. 
+
+
+Because we dont know what state Sandbox was left in (hopefully everyone is pulling master into it after their pushes) it is recomended to hit the compare button (as shown above in the pull request pictures) with master going INTO sandbox. If there are changes to be made automatically go ahead and merge them. However if there are changes that cant be made automatically, find the latest commit on master and contact the author to fix sandbox with their merge conflict.
+
+
+When you are done pulling master into sandbox, go ahead and pull your branch into sandbox. Fix any merge conflicts as carefully as you can. If you broke something the Circle continous integration will mark the commit with a red x, however it does not catch logic errors. So when you are done pulling to sandbox your changes, pull sandbox into your local enviornment `git checkout -b sandbox & git pull origin sandbox` for testing of features. Make sure your changes still work along with all previous features.
+
+
+When all done set a pull request going from sandbox to master. Go to discord and tag parkr asking for a quick review. When that review is done the person reviewing who confirmed everything is good will close the request and merge sandbox into master.
 
 
 ### Server Workflow
+When all done with testing in sandbox and code is merged into master, it is time for it to be in production. We can now run `git pull origin master` on parkfor.me. After the code is succesfully pulled down from github, the last step is to restart gunicorn with `systemctl restart gunicorn.service`
+
+From there sitback and enjoy your live code changes!
 
 ## Continous Integration
-https://circleci.com/team/gh/convell
+[**Check our current builds!**](https://circleci.com/team/gh/convell)
+
+
+Continous Integration is a current standard in most agile based workflows. However because we have very little agile practices, we are using very little continous integration. Current we are just doing a simple test to check if it crashes django on python 2.7, and with a few different test cases. If this project gets bigger we should consider writing out the config file to test more edge cases.
