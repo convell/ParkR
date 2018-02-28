@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/circleci-demo-python-django
     docker:
-      - image: circleci/python:2.7.14
+      - image: circleci/python:2.7
         environment:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -35,3 +35,6 @@ jobs:
       - store_artifacts:
           path: test-results
           destination: tr1
+machine:
+  post:
+    - pyenv global 2.7 3.4
