@@ -1,8 +1,8 @@
 version: 2
+machine:
+  python:
+    version: pypy-2.2.1
 jobs:
-  machine:
-    python:
-      version: pypy-2.2.1
   build:
     working_directory: ~/circleci-demo-python-django
     docker:
