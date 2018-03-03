@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1>More about {{showUser}}...</h1>
+            <p>{{showUser}}'s current parking spaces:</p>
+            {% if owned_spaces %}
+                <div class="list-group">
+                    {% for s in owned_spaces %}
+                        <a class="list-group-item"
+                           href="{% url 'reservation_info' id=s.id %}">
+                            {{ s.note }}
+                        </a>
+                    {% endfor %}
+                </div>
+
+            {% else %}
+                <p>{{showUser}} currently has no spaces listed.</p>
+            {% endif %}
+            <br><p>Reviews:</p>
+        </div>
+    </div>
+{% endblock %}

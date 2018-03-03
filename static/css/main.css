@@ -1,0 +1,78 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+========================================================================== */
+body {
+    padding-top: 70px;
+    padding-bottom: 20px;
+}
+
+#titleBox {
+    width: 100%;
+    margin-top: -20px;
+    left: 0;
+    height: 175px;
+    background: #bc3838;
+    padding-top: 40px;
+    color: white;
+    text-align: center;
+}
+
+#map {
+    margin-top: 175px;
+    width: 90%;
+    margin: 0 auto;
+    height: 600px;
+}
+
+#find input, #find input:focus {
+    padding: 5px;
+    border: none;
+    outline: none;
+    -moz-box-shadow: 0 0 3px #888;
+    -webkit-box-shadow: 0 0 3px#888;
+    box-shadow: 0 0 3px #888;
+}
+
+.tbLink {
+    padding: 5px;
+    color: #591818;
+    border: 2px solid #591818;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    #text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.tbLink:hover {
+    border: 2px solid black;
+    color: black;
+}
+
+.full-width-div {
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+
+#findParkingSpaceHeader {
+    text-align:center;
+    margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
