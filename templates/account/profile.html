@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+Welcome
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Hello, {{ request.user.username }}</h1>
+            <a href="{% url 'new_space' %}" class="tbLink">List a parking space</a>
+            <a href="#" class="tbLink">Reservation history</a>
+            <a href="{% url 'user_password' %}" class="tbLink">Change password</a><br><br>
+            <p>View your current parking spaces:</p>
+            {% if owned_spaces %}
+                <div class="list-group">
+                    {% for s in owned_spaces %}
+                        <a class="list-group-item"
+                           href="{% url 'reservation_info' id=s.id %}">
+                            {{ s.note }}
+                        </a>
+                    {% endfor %}
+                </div>
+
+            {% else %}
+                <p>You have no spaces listed.</p>
+            {% endif %}
+            <a href="{% url 'user_show' id=user.id %}" class="tbLink">View my profile</a>
+        </div>
+    </div>
+{% endblock %}
