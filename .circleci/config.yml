@@ -38,6 +38,3 @@ jobs:
       - store_artifacts:
           path: test-results
           destination: tr1
-test:
-  pre:
-    ./manage.py collectstatic --no-input
