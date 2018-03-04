@@ -1,5 +1,5 @@
 # ParkR
-Senior project for CS 425
+Senior project for CS 425 [![CircleCI](https://circleci.com/gh/convell/ParkR.svg?style=svg)](https://circleci.com/gh/convell/ParkR)
 
 Uses Django 2.0 and Python 3
 
