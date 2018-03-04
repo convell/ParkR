@@ -1,0 +1,25 @@
+{% load staticfiles %}
+{% include 'base.html' %}
+  <link rel="stylesheet" type="text/css" href="{% static "css/forms.css" %}">
+
+  <title>Park'R - Payment Testing</title>
+</head>
+<body>
+
+  <center>
+  <form action="/process/" method="POST">{% csrf_token %}
+    <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="pk_test_MKfo1zMYDA0i0ITx5kjkAcwK"
+      data-amount={{ cost }}
+      data-zip-code="true"
+      data-name="Demo Site"
+      data-description="Widget"
+      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+      data-locale="auto">
+    </script>
+  </form>
+  </center>
+
+</body>
+</html>
