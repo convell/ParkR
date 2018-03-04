@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^account/', include('account.urls')),
     url(r'^list/', include('listing.urls')),
     url(r'^reserve/', include('reservation.urls')),
+    url(r'^payment/', include('payment.urls')),
 ]
 urlpatterns += staticfiles_urlpatterns()
