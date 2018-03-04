@@ -9,8 +9,8 @@ def payment(request):
 def process(request):
     stripe.api_key = "***REMOVED***"
     cost = "499" #insert your var
-    if request.method == 'POST':
-        form = PostForm(request.POST)
+    #if request.method == 'POST':
+        #form = PostForm(request.POST)
 #       if request.user.is_authenticated():
     print (request.POST.items())
     token = request.POST['stripeToken']
