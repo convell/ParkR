@@ -15,7 +15,6 @@ jobs:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
     steps:
-      - collectstatic
       test:
           pre:
               ./manage.py collectstatic --no-input
