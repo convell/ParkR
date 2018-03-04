@@ -4,6 +4,9 @@ machine:
     version: 3.6.1
 jobs:
   build:
+    test:
+        pre:
+	    ./manage.py collectstatic --no-input
     working_directory: ~/circleci-demo-python-django
     docker:
       - image: circleci/python:3.6-stretch-browsers
@@ -24,9 +27,6 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install
-            pipenv install django
-            pipenv install netifaces
-            pipenv install django_crispy_forms
       - save_cache:
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
