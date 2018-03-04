@@ -1,7 +1,4 @@
 beautifulsoup4==4.4.1
-Brlapi==0.6.4
-chardet==2.3.0
-defer==1.0.6
 Django==2.0.2
 django-crispy-forms==1.7.0
 html5lib==0.999
