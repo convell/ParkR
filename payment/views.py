@@ -1,5 +1,6 @@
 from django.shortcuts import render
-import stripe
+from django.http import HttpResponse
+from .functions import *
 
 def payment(request):
     out = {}
@@ -8,21 +9,18 @@ def payment(request):
 
 def process(request):
     stripe.api_key = "sk_test_8d5pC3u5kOvxymlk0U0x5JPJ"
-    cost = "499" #insert your var
-    #if request.method == 'POST':
-        #form = PostForm(request.POST)
-#       if request.user.is_authenticated():
-    print (request.POST.items())
-    token = request.POST['stripeToken']
+    cost = "499" #where to pull this cost from...
+#    if request.user.is_authenticated():
 
-    charge = stripe.Charge.create(
-      amount = cost,
-      currency = "usd",
-      description = "Test charge",
-      source = token,
-    )
+    charge = processPayment(request.POST['stripeToken'], "1000");
 
-    print (stripe.Charge.retrieve(charge["id"]).items())
+    print(charge)
 
-    return render(request, 'payment/process.html')
+    if charge is not "false":
+        return render(request, 'payment/process.html', charge)
+
+    fine = "success"
+    print(fine)
+    return HttpResponse(fine)
+#    return render(request, 'payment/process.html')
 # Create your views here.
