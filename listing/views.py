@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect
 from .forms import ListingForm
 from .models import ParkingSpace
 
-
 # Create your views here.
 @login_required
 def new_space(request):
