@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Welcome
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+
+
+
+
+        <form method="post" role="form">
+            {% for field in form.visible_fields %}
+            <div id="div_{% url 'new_reservation' id=id %}"
+                 class="form-group{% if field.errors %} has-error{% endif %}">
+                {{ field.label_tag }}
+                {{ field }}
+                <div class="text-muted pull-right">
+                    <small>{{ field.help_text }}</small>
+                </div>
+                <div class="help-block">
+                    {{ field.errors }}
+                </div>
+            </div>
+            {% endfor %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+
+
+
+        <br><a href="{% url 'parkr_home' %}" class="tbLink">Return to home</a>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+
+    <link rel="stylesheet"
+    href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">
+    <link rel="stylesheet"
+    href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js">
+    </script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.js">
+    </script>
+    {{ form.media }}
+
+{% endblock %}
