@@ -13,7 +13,7 @@ Welcome
                 <div class="list-group">
                     {% for r in reserved_spaces %}
                         <a class="list-group-item"
-                           href="{% url 'reservation_info' id=r.id %}">
+                           href="{% url 'reservation_info' id=r.reserved_space.id %}">
                             {{ r.reserved_space.note }}
                         </a>
                     {% endfor %}
