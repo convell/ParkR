@@ -1,0 +1,52 @@
+{% load staticfiles %}
+{% include 'base.html' %}
+  <link rel="stylesheet" type="text/css" href="{% static "css/forms.css" %}">
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+
+  <title>Park'R - Payment Testing</title>
+</head>
+<body>
+
+  <center>
+    <br>Words are staying here?
+    <br><button id="customButton">Purchase</button>
+    <br>Let's hope this page isn't being reloaded.
+  </center>
+
+  <script>
+    var handler = StripeCheckout.configure({
+      key: 'pk_test_MKfo1zMYDA0i0ITx5kjkAcwK',
+      image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+      locale: 'auto',
+      token: function(token) {
+        $.ajax({
+          url: "{% url 'process' %}",
+          type: 'post',
+          data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            stripeToken: token.id,
+          },
+          dataType: 'json',
+          success: function() { console.log("hell yeah") },
+        });
+      }
+    });
+
+    document.getElementById('customButton').addEventListener('click', function(e) {
+      // Open Checkout with further options:
+      handler.open({
+        name: 'Demo Site',
+        description: '2 widgets',
+        amount: 2000
+      });
+      e.preventDefault();
+
+    });
+
+    // Close Checkout on page navigation:
+    window.addEventListener('popstate', function() {
+      handler.close();
+    });
+  </script>
+</body>
+</html>
