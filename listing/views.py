@@ -2,12 +2,17 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 import googlemaps
 import json
+import os
 from .forms import ListingForm
 from .models import ParkingSpace
 
-with open(".creds", "r+") as file:
-    creds = json.loads(file.read())
-    gmaps = googlemaps.Client(key=creds["google-api"])
+if fromFile = True:
+    with open(".creds", "r+") as file:
+        creds = json.loads(file.read())
+        gmaps = googlemaps.Client(key=creds["google-api"])
+else:
+    gmaps = googlemaps.Client(key=creds[os.environ['GOOGLE'])
+    
 # Create your views here.
 @login_required
 def new_space(request):
