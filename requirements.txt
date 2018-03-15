@@ -7,3 +7,4 @@ requests
 stripe==1.79.1
 googlemaps
 django-bootstrap3-datetimepicker-2
+stripe==1.79.1
