@@ -1,10 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-
+import googlemaps
+import json
 from .forms import ListingForm
 from .models import ParkingSpace
 
-
+with open(".creds", "r+") as file:
+    creds = json.loads(file.read())
+    gmaps = googlemaps.Client(key=creds["google-api"])
 # Create your views here.
 @login_required
 def new_space(request):
@@ -12,7 +15,17 @@ def new_space(request):
         listing = ParkingSpace(owner=request.user)
         form = ListingForm(instance=listing, data=request.POST)
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            address = form.cleaned_data['address']
+            geocode_result = gmaps.geocode(address)
+            print(geocode_result)
+            if geocode_result:
+                print(geocode_result[0]["geometry"]["location"]["lat"])
+                instance.lat=geocode_result[0]["geometry"]["location"]["lat"]
+                instance.lng=geocode_result[0]["geometry"]["location"]["lng"]
+                instance.save()
+            else:
+                print("oh snap")
             return redirect('user_profile')
     else:
         form = ListingForm()
