@@ -6,7 +6,9 @@ import os
 from .forms import ListingForm
 from .models import ParkingSpace
 
-if fromFile = True:
+fromFile = False
+
+if fromFile == True:
     with open(".creds", "r+") as file:
         creds = json.loads(file.read())
         gmaps = googlemaps.Client(key=creds["google-api"])
