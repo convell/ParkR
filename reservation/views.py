@@ -23,7 +23,7 @@ def new_reservation(request, id):
         form = ReservationForm(instance=reservation, data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('user_profile')
+            return redirect('payment')
     else:
         form = ReservationForm()
     return render(request, "reservation/reserve_form.html", {"id": id,
