@@ -13,7 +13,7 @@ if fromFile == True:
         creds = json.loads(file.read())
         gmaps = googlemaps.Client(key=creds["google-api"])
 else:
-    gmaps = googlemaps.Client(key=creds[os.environ['GOOGLE'])
+    gmaps = googlemaps.Client(key=os.environ['GOOGLE'])
     
 # Create your views here.
 @login_required
