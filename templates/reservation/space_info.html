@@ -1,18 +1,37 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
-{% block title %}
-Welcome
-{% endblock %}
 
 {% block content %}
+
     <div class="jumbotron">
         <div class="container">
             <h2>More about <a href="{% url 'user_show' id=owner.id %}">{{space.owner}}'s</a> space...</h2>
             <p>Location: {{space.lat}} </p>
             <p>Information: {{space.note}}</p>
-            <p>Rates: </p>
-            <p></p>
-            <button class="tbLink">Reserve this parking space</button>
+            <p>Rates:</p>
+            <p>Date: <input type="text" id="datepicker"></p>
+            <br><br><a href="{% url 'new_reservation' id=space.id %}" class="tbLink">Reserve this space</a>
+            <br><br><a href="{% url 'parkr_home' %}" class="tbLink">Return to home</a>
         </div>
     </div>
 {% endblock %}
+
+
+{% block script %}
+    {{ block.super }}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+    $( function() {
+    $( "#datepicker" ).datepicker();
+    } );
+    $.datepicker.formatDate( "yy-mm-dd", new Date( 2007, 1 - 1, 26 ) );
+    </script>
+
+{% endblock %}
+
+
