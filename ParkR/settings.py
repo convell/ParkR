@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'messenger',
     'payment',
     'crispy_forms',
+    'bootstrap3_datetime',
 ]
 
 MIDDLEWARE = [
