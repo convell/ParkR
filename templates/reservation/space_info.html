@@ -10,9 +10,20 @@
             <p>Location: {{space.lat}} </p>
             <p>Information: {{space.note}}</p>
             <p>Rates:</p>
-            <p>Date: <input type="text" id="datepicker"></p>
-            <br><br><a href="{% url 'new_reservation' id=space.id %}" class="tbLink">Reserve this space</a>
+            <p>Start date: <input type="text" id="datepicker1"></p>
+            <p>End date: <input type="text" id=datepicker2"></p>
+
+            <form method="post">
+
+            {% csrf_token %}
+
+            {{ form|crispy }}
+            <button type="submit" class="tbLink">Reserve this parking space</button>
+
+            <br><br><a href="{% url 'new_reservation' id=space.id %}" class="tbLink">Reserve this space (temp)</a>
             <br><br><a href="{% url 'parkr_home' %}" class="tbLink">Return to home</a>
+
+        </form>
         </div>
     </div>
 {% endblock %}
@@ -27,8 +38,13 @@
 
     <script>
     $( function() {
-    $( "#datepicker" ).datepicker();
+    $( "#datepicker1" ).datepicker();
     } );
+
+    $( function() {
+    $( "#datepicker2" ).datepicker();
+    } );
+
     $.datepicker.formatDate( "yy-mm-dd", new Date( 2007, 1 - 1, 26 ) );
     </script>
 
