@@ -31,22 +31,22 @@ def reservation_history(request):
 def process(request):
     stripe.api_key = "***REMOVED***"
     cost = "499"  # where to pull this cost from...
-    #    if request.user.is_authenticated():
-    print(request.POST['spot_id'], type(request.POST['spot_id']))
-    parking_space = get_object_or_404(ParkingSpace, pk=int(request.POST['spot_id']))
-    reservation = Reservation(reserved_user=request.user, reserved_space=parking_space,
+
+    if request.user.is_authenticated():
+        parking_space = get_object_or_404(ParkingSpace, pk=int(request.POST['spot_id']))
+        reservation = Reservation(reserved_user=request.user, reserved_space=parking_space,
                               start_time=request.POST['start_time'], end_time=request.POST['end_time'])
-    reservation.save()
+        reservation.save()
 
-    charge = processPayment(request.POST['stripeToken'], "1000");
+        charge = processPayment(request.POST['stripeToken'], "1000");
 
-    #print(charge)
+        if charge is not "false":
+            return render(request, 'payment/process.html', charge)
 
-    if charge is not "false":
-        return render(request, 'payment/process.html', charge)
+        fine = "success"
+        print(fine)
+        return HttpResponse(fine) #Route them to profile
 
-    fine = "success"
-    print(fine)
-    return HttpResponse(fine)
+    return redirect(parkr_home);
 
 

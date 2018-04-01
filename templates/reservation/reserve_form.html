@@ -9,8 +9,8 @@ Welcome
     <div class="container">
 
             <a input type="hidden" value="{{id}}" id="spot_id"></a>
-            <p>Start date: <input type="text" id="datepicker1"></p>
-            <p>End date: <input type="text" id=datepicker2"></p>
+            <p>Start date: <input type="date" id="datepicker1"></p>
+            <p>End date: <input type="date" id="datepicker2"></p>
             <button type="submit" class="tbLink">Reserve this parking space</button>
         <button id="customButton">Purchase</button>
         <br><a href="{% url 'parkr_home' %}" class="tbLink">Return to home</a>
@@ -24,7 +24,7 @@ Welcome
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://checkout.stripe.com/checkout.js"></script>
-
+<!--
     <script>
     $( function() {
     $( "#datepicker1" ).datepicker();
@@ -33,8 +33,8 @@ Welcome
     $( function() {
     $( "#datepicker2" ).datepicker();
     } );
-
     $.datepicker.formatDate( "yy-mm-dd", new Date( 2007, 1 - 1, 26 ) );
+-->
     </script>
 <script>
     var handler = StripeCheckout.configure({

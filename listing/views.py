@@ -6,7 +6,7 @@ import os
 from .forms import ListingForm
 from .models import ParkingSpace
 
-fromFile = False
+fromFile = True
 
 if fromFile == True:
     with open(".creds", "r+") as file:
