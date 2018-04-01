@@ -9,7 +9,7 @@
             <h2>More about <a href="{% url 'user_show' id=owner.id %}">{{space.owner}}'s</a> space...</h2>
             <p>Location: {{space.lat}} </p>
             <p>Information: {{space.note}}</p>
-            <p>Rates:</p>
+            <p>Rates: {{space.parkingPrice}}</p>
             <p>Date: <input type="text" id="datepicker"></p>
             <br><br><a href="{% url 'new_reservation' id=space.id %}" class="tbLink">Reserve this space</a>
             <br><br><a href="{% url 'parkr_home' %}" class="tbLink">Return to home</a>

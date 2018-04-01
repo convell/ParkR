@@ -5,7 +5,7 @@ class ParkingSpaceForm(ModelForm):
 
     class Meta:
         model = ParkingSpace
-        fields = ('note','lat','lng')
+        fields = ('note','lat','lng', 'parkingPrice')
         exclude = ('owner', 'timeOpen', 'timeClose',)
 
     def __init__(self, *args, **kwargs):
