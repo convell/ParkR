@@ -9,12 +9,13 @@ body {
 }
 
 #titleBox {
+    padding-top: 40px;
+    padding-bottom: 40px;
     width: 100%;
     margin-top: -20px;
     left: 0;
     height: 175px;
     background: #bc3838;
-    padding-top: 40px;
     color: white;
     text-align: center;
 }
@@ -61,18 +62,39 @@ body {
     margin-bottom: 20px;
 }
 
+.sidenav {
+    margin-top: 51px;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    //z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
 
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.2s;
+}
 
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
 
-
-
-
-
-
-
-
-
-
-
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
 
 
