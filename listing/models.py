@@ -18,3 +18,4 @@ class ParkingSpace(models.Model):
     note = models.CharField(max_length=300)
     timeOpen = models.CharField(max_length=300, default="0")
     timeClose = models.CharField(max_length=300, default="0")
+    parkingPrice = models.CharField(max_length=300, default="0")
