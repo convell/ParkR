@@ -8,12 +8,11 @@ Welcome
 {% block content %}
     <div class="container">
 
-            <a input type="hidden" value="{{id}}" id="spot_id"></a>
-            <p>Start date: <input type="date" id="datepicker1"></p>
-            <p>End date: <input type="date" id="datepicker2"></p>
-            <button type="submit" class="tbLink">Reserve this parking space</button>
-        <button id="customButton">Purchase</button>
-        <br><a href="{% url 'parkr_home' %}" class="tbLink">Return to home</a>
+        <a input type="hidden" value="{{id}}" id="spot_id"></a>
+        <p>Start date: <input type="date" id="datepicker1"></p>
+        <p>End date: <input type="date" id="datepicker2"></p>
+        <button id="customButton" class="tbLink">Purchase</button>
+        <br><br><br><a href="{% url 'parkr_home' %}" class="tbLink">Return to home</a>
     </div>
 {% endblock %}
 

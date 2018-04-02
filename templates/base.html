@@ -51,6 +51,16 @@
           </div>
         </nav>
 
+        {% if user.is_authenticated %}
+          <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn"
+              onclick="closeNav()">&times;</a>
+            <a href="{% url 'user_profile' %}">Profile</a>
+            <a href="#">Messenger</a>
+            <a href="{% url 'user_logout' %}">Logout</a>
+          </div>
+        {% endif %}
+
 
 
         {% block content %}
