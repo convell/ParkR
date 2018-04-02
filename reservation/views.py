@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from listing.models import ParkingSpace
 from .models import Reservation
@@ -15,9 +15,9 @@ def information(request, id):
                                                            'owner': space_owner})
 
 
+# not being used -- saving for reference
 @login_required()
 def new_reservation(request, id):
-
     return render(request, "reservation/reserve_form.html", {"id": id})
 
 
@@ -28,14 +28,18 @@ def reservation_history(request):
 
 
 @login_required()
+def reservation_receipt(request):
+    return render(request, 'reservation/reservation_receipt.html')
+
+
+@login_required()
 def process(request):
     stripe.api_key = "***REMOVED***"
-    cost = "499"  # where to pull this cost from...
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         parking_space = get_object_or_404(ParkingSpace, pk=int(request.POST['spot_id']))
         reservation = Reservation(reserved_user=request.user, reserved_space=parking_space,
-                              start_time=request.POST['start_time'], end_time=request.POST['end_time'])
+                                  start_time=request.POST['start_time'], end_time=request.POST['end_time'])
         reservation.save()
 
         charge = processPayment(request.POST['stripeToken'], "1000");
@@ -43,10 +47,4 @@ def process(request):
         if charge is not "false":
             return render(request, 'payment/process.html', charge)
 
-        fine = "success"
-        print(fine)
-        return HttpResponse(fine) #Route them to profile
-
-    return redirect(parkr_home);
-
-
+    return redirect('reservation_receipt')
