@@ -7,7 +7,7 @@
     <div class="jumbotron">
         <div class="container">
             <h2>More about <a href="{% url 'user_show' id=owner.id %}">{{space.owner}}'s</a> space...</h2>
-            <p>Location: Reno, NV </p>
+            <p>Location: {{address}} </p>
             <p>Information: {{space.note}}</p>
             <p>Rates: ${{space.parkingPrice}}.00 per hour</p>
             <a input type="hidden" value="{{id}}" id="spot_id"></a>
