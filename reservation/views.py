@@ -4,14 +4,30 @@ from django.shortcuts import render, get_object_or_404, redirect
 from listing.models import ParkingSpace
 from .models import Reservation
 from .functions import *
+import json, googlemaps
+
+fromFile = True
+
+if fromFile == True:
+    with open(".creds", "r+") as file:
+        creds = json.loads(file.read())
+        gmaps = googlemaps.Client(key=creds["google-api"])
+else:
+    gmaps = googlemaps.Client(key=os.environ['GOOGLE'])
+
 
 def information(request, id):
     space = get_object_or_404(ParkingSpace, pk=id)
     space_owner = space.owner
-
+    address = "Middle of Nowhere"
+    if not space.lat == "0":
+        lat = space.lat
+        lng = space.lng
+        address = gmaps.reverse_geocode((lat,lng))[0]["formatted_address"]
     return render(request, "reservation/space_info.html", {"id": id,
                                                            'space': space,
-                                                           'owner': space_owner})
+                                                           'owner': space_owner,
+                                                           'address': address})
 
 
 # not being used -- saving for reference
@@ -53,4 +69,3 @@ def process(request):
     }
 
     return JsonResponse(out)
-
