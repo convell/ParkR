@@ -41,14 +41,16 @@ Welcome
         });
 
 
-      markerList = {{djangoMapMarkers|safe}};
+            markerList = {{djangoMapMarkers|safe}};
+            pidList = {{pidList|safe}};
             noteList = {{notes|safe}};
             var markers=[];
             var infowindows=[];
             for (i = 0; i < markerList.length; i++)
             {
+            pid = pidList[i]
             infowindows[i] = new google.maps.InfoWindow({
-                content:noteList[i]+'<p><a href="{% url 'reservation_info' id=1 %}">Reserve This Space!</a></p>'
+                content:noteList[i]+'<p><a href="reserve/info/'+pid+'">Reserve This Space!</a></p>'
             });
             markers[i] = new google.maps.Marker(
                 {
@@ -62,7 +64,7 @@ Welcome
                     map.panTo(this.getPosition());
                     infowindows[this.index].open(this.map,this);
                 });
-            console.log(markerList[i])
+            console.log(markerList[i],pidList[i])
             }
         // Create the search box and link it to the UI element.
         var input = document.getElementById('toSearch');
