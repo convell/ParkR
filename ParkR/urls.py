@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django_private_chat import urls as django_private_chat_urls
 
 from .views import home
 
@@ -26,5 +27,6 @@ urlpatterns = [
     url(r'^list/', include('listing.urls')),
     url(r'^reserve/', include('reservation.urls')),
     url(r'^payment/', include('payment.urls')),
+    url(r'^', include('django_private_chat.urls')),
 ]
 urlpatterns += staticfiles_urlpatterns()
