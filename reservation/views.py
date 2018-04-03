@@ -1,10 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from listing.models import ParkingSpace
 from .models import Reservation
 from .functions import *
-
 
 def information(request, id):
     space = get_object_or_404(ParkingSpace, pk=id)
@@ -47,7 +46,11 @@ def process(request):
         print("res", charge)
 
         if charge is not "false":
-            return 'payment/process.html'
+            return HttpResponse('payment/process.html')
 
-    return 'reservation_receipt'
+    out = {
+      "route": "reservation_receipt"
+    }
+
+    return JsonResponse(out)
 
