@@ -58,10 +58,3 @@ def process(request):
         reservation.save()
 
         charge = processPayment(request.POST['stripeToken'], "1000");
-        print(charge)
-        return redirect(new_space, permanent=True)
-        if charge is not "false":
-            print("hi")
-            return render(request, 'payment/process.html', charge)
-
-    return redirect('reservation_receipt')
