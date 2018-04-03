@@ -15,7 +15,7 @@
 
         <script src="{% static 'js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
     </head>
-    <body>
+    <body id="main">
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,10 +33,33 @@
                     <li><a href="#">Features</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Contact</a></li>
+                  {% if user.is_authenticated %}
+                    <li><a href="javascript:void(0);">
+                      <span class="glyphicon glyphicon-user"
+                        onClick="openNav()"></span>
+                    </a></li>
+                  {% else %}
+                    <li><a href="{% url 'user_signup' %}" style="padding:9px 8px;">
+                      <div style="padding:6px 7px;border:1px solid #333333;border-radius:4px;">Sign Up</div></a></li>
+                    <li><a href="{% url 'user_login' %}">
+                      <span class="glyphicon glyphicon-log-in"
+                        ></span>
+                    </a></li>
+                  {% endif %}
                 </ul>
             </div><!--/.navbar-collapse -->
           </div>
         </nav>
+
+        {% if user.is_authenticated %}
+          <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn"
+              onclick="closeNav()">&times;</a>
+            <a href="{% url 'user_profile' %}">Profile</a>
+            <a href="#">Messenger</a>
+            <a href="{% url 'user_logout' %}">Logout</a>
+          </div>
+        {% endif %}
 
 
 
@@ -51,6 +74,19 @@
         <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
 
         <script src="{% static 'js/main.js' %}"></script>
+        <script>
+        function openNav()
+        {
+          document.getElementById("mySidenav").style.width = "250px";
+          document.getElementById("main").style.marginRight = "250px";
+        }
+
+        function closeNav()
+        {
+          document.getElementById("mySidenav").style.width = "0";
+          document.getElementById("main").style.marginRight = "0";
+        }
+        </script>
         {% endblock %}
 
     </body>
