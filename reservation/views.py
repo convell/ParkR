@@ -1,11 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from listing.models import ParkingSpace
 from .models import Reservation
 from .functions import *
 import json, googlemaps
-
 
 fromFile = True
 
@@ -15,6 +14,7 @@ if fromFile == True:
         gmaps = googlemaps.Client(key=creds["google-api"])
 else:
     gmaps = googlemaps.Client(key=os.environ['GOOGLE'])
+
 
 def information(request, id):
     space = get_object_or_404(ParkingSpace, pk=id)
@@ -58,3 +58,14 @@ def process(request):
         reservation.save()
 
         charge = processPayment(request.POST['stripeToken'], "1000");
+
+        print("res", charge)
+
+        if charge is not "false":
+            return HttpResponse('payment/process.html')
+
+    out = {
+      "route": "reservation_receipt"
+    }
+
+    return JsonResponse(out)
