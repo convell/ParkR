@@ -4,19 +4,29 @@
 
 {% block content %}
 
-    <div class="jumbotron">
+      <center><h1>Parking Space Information</h1></center>
+      <div class="chasebox">
         <div class="container">
-            <h2>More about <a href="{% url 'user_show' id=owner.id %}">{{space.owner}}'s</a> space...</h2>
-            <p>Location: Reno, NV </p>
-            <p>Information: {{space.note}}</p>
-            <p>Rates: ${{space.parkingPrice}}.00 per hour</p>
-            <a input type="hidden" value="{{id}}" id="spot_id"></a>
-            <p>Reservation start: <input type="date" id="datepicker1"><input type="time"></p>
-            <p>Reservation end: <input type="date" id="datepicker2"><input type="time"></p>
-            <button id="customButton" class="tbLink">Purchase</button>
-            <br><br><a href="{% url 'parkr_home' %}" class="tbLink">Return to home</a>
+            <h2><a href="{% url 'user_show' id=owner.id %}">{{space.owner}}</a>'s space</h2>
+            <br>
+            <p><b>Location:</b> Reno, NV </p>
+            <p><b>Information:</b> {{space.note}}</p>
+            <p><b>Rate:</b> ${{space.parkingPrice}}.00 per hour</p>
+            <br>
+            <p><b>Reservation start:</b>
+            <br>
+            <input type="date" id="datepicker1"><input type="time"></p>
+            <p><b>Reservation end:</b>
+            <br>
+            <input type="date" id="datepicker2"><input type="time"></p>
+            <br>
+            <button id="customButton" class="tbLink"
+              style="padding: 6px;">Continue to Payment</button>
+            <a href="{% url 'parkr_home' %}" class="tbLink"
+              style="margin-left:20px;">Return Home</a>
+            <input type="hidden" value="{{id}}" id="spot_id">
         </div>
-    </div>
+      </div>
 {% endblock %}
 
 
@@ -44,7 +54,15 @@
                 spot_id:{{id}},
               },
               dataType: 'json',
-              success: function() { console.log("hell yeah") },
+              success: function(data) {
+                console.log("oof");
+                console.log(data);
+                //window.location(out);
+              },
+              error: function(data) {
+                console.log("Failed");
+                console.log(data);
+              }
             });
           }
         });

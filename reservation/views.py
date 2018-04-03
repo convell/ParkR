@@ -44,7 +44,10 @@ def process(request):
 
         charge = processPayment(request.POST['stripeToken'], "1000");
 
-        if charge is not "false":
-            return render(request, 'payment/process.html', charge)
+        print("res", charge)
 
-    return redirect('reservation_receipt')
+        if charge is not "false":
+            return 'payment/process.html'
+
+    return 'reservation_receipt'
+
