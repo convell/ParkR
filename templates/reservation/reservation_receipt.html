@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+Welcome
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Hello, {{ request.user.username }}</h1>
+            <a href="{% url 'reservation_history'  %}" class="tbLink">Go to my reservation history</a>
+            <a href="{% url 'parkr_home'  %}" class="tbLink">Reserve another parking space!</a>
+        </div>
+    </div>
+{% endblock %}
