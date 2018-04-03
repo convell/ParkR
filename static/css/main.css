@@ -6,15 +6,15 @@
 body {
     padding-top: 70px;
     padding-bottom: 20px;
+    transition: 0.5s
 }
 
 #titleBox {
     padding-top: 40px;
-    padding-bottom: 40px;
     width: 100%;
     margin-top: -20px;
     left: 0;
-    height: 175px;
+    height: 200px;
     background: #bc3838;
     color: white;
     text-align: center;
