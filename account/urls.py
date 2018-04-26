@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
-from .views import SignUpView, profile, show
+from .views import SignUpView, profile, show, leave_review
 
 
 urlpatterns = [
@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'change-password/',
         PasswordChangeView.as_view(template_name="account/change_password.html"),
         name="user_password"),
+    url(r'leave_review/(?P<id>\d+)/$', leave_review, name="leave_review"),
 ]
