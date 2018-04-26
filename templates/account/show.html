@@ -18,7 +18,24 @@
             {% else %}
                 <p>{{showUser}} currently has no spaces listed.</p>
             {% endif %}
-            <br><p>Reviews:</p>
+            {% if showUser != request.user %}
+            <br><a href="{% url 'leave_review' id=showUser.id %}" class="tbLink">Leave a review for {{showUser}}</a>
+            {% endif %}
+            <br><br><br><h3>Reviews:</h3>
+            {% if reviews %}
+                <div class="list-group">
+                    {% for r in reviews %}
+                        <li class="list-group-item">
+                            {{ r.review }} <b>This review was left by</b> <a href="{% url 'user_show' id=r.reviewing_user.id %}">{{ r.reviewing_user }}</a>
+                        </li>
+                    {% endfor %}
+                </div>
+
+            {% else %}
+                <p>{{showUser}} currently has no reviews. {% if showUser != request.user %} Be the first to <a href="{% url 'leave_review' id=showUser.id %}">leave one! {% endif %}</a></p>
+            {% endif %}
+
+
         </div>
     </div>
 {% endblock %}
