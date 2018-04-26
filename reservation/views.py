@@ -58,7 +58,6 @@ def process(request):
         reservation.save()
 
         charge = processPayment(request.POST['stripeToken'], "1000");
-<<<<<<< HEAD
 
         print("res", charge)
 
@@ -66,6 +65,3 @@ def process(request):
             return 'payment/process.html'
 
     return 'reservation_receipt'
-
-=======
->>>>>>> 6af414e7a6e5118de396c7b8b8aeffdd97e8504a

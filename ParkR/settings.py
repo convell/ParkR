@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'listing',
     'messenger',
     'payment',
+    'account',
     'crispy_forms',
     'bootstrap3_datetime',
     'django_private_chat'
