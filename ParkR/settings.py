@@ -33,6 +33,9 @@ STATICFILES_DIRS = [
 ]
 # Application definition
 
+CHAT_WS_SERVER_HOST = 'localhost'
+CHAT_WS_SERVER_PORT = 5002
+CHAT_WS_SERVER_PROTOCOL = 'ws'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,6 +50,7 @@ INSTALLED_APPS = [
     'payment',
     'crispy_forms',
     'bootstrap3_datetime',
+    'django_private_chat'
 ]
 
 MIDDLEWARE = [
