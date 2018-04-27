@@ -13,4 +13,3 @@ websockets
 django-braces
 asyncio
 django-private-chat
-Pillow
