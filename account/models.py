@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     profile_user = models.ForeignKey(User, related_name="profile_user", on_delete=models.CASCADE)
     bio = models.CharField(max_length=500, blank=True)
-    photo = models.ImageField()
 
 
 class Reviews(models.Model):
