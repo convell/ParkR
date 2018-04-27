@@ -37,18 +37,19 @@ body {
 }
 
 .tbLink {
-    padding: 5px;
+    background:#fff;
+    padding: 7px 9px;
     color: #591818;
     border: 2px solid #591818;
     border-radius: 4px;
     transition: all 0.2s ease;
-    #text-transform: uppercase;
     letter-spacing: 2px;
 }
 
 .tbLink:hover {
-    border: 2px solid black;
-    color: black;
+    background: #591818;
+    color: #fff;
+    text-decoration: none;
 }
 
 .full-width-div {
@@ -97,4 +98,11 @@ body {
     margin-left: 50px;
 }
 
+.chasebox {
+    background: #f2f2f2;
+    margin: 20px 60px;
+    padding: 20px;
+    border-radius: 6px;
+    font-size: 22px;
+}
 
