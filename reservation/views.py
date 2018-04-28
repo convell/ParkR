@@ -54,7 +54,7 @@ def process(request):
     if request.user.is_authenticated:
         parking_space = get_object_or_404(ParkingSpace, pk=int(request.POST['spot_id']))
         reservation = Reservation(reserved_user=request.user, reserved_space=parking_space,
-                                  start_time=request.POST['start_time'], end_time=request.POST['end_time'])
+                                  start_time=request.POST['start_data'], end_time=request.POST['end_data'])
         reservation.save()
 
         charge = processPayment(request.POST['stripeToken'], "1000");

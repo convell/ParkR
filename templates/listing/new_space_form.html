@@ -8,7 +8,6 @@ Welcome
 {% block content %}
     <div class="container">
         <form method="post" action="{% url 'new_space' %}">
-
             {% csrf_token %}
 
             {{ form|crispy }}

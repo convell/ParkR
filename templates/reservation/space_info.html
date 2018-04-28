@@ -9,14 +9,18 @@
             <br>
             <p><b>Location:</b> Reno, NV </p>
             <p><b>Information:</b> {{space.note}}</p>
-            <p><b>Rate:</b> ${{space.parkingPrice}}.00 per hour</p>
+            <p><b>Rate:</b> ${{space.parkingPrice}} per hour</p>
             <br>
             <p><b>Reservation start:</b>
             <br>
-            <input type="date" id="datepicker1"><input type="time"></p>
+            <input type="date" id="datepicker1"><input type="time" id="timepicker1"></p>
             <p><b>Reservation end:</b>
             <br>
-            <input type="date" id="datepicker2"><input type="time"></p>
+            <input type="date" id="datepicker2"><input type="time" id="timepicker2"></p>
+            <br>
+            <div id="date-error" style="color:red;">
+              Please select a valid start and end time.
+            </div>
             <br>
             <button id="customButton" class="tbLink"
               style="padding: 6px;">Continue to Payment</button>
@@ -25,6 +29,7 @@
             <input type="hidden" value="{{id}}" id="spot_id">
         </div>
       </div>
+
 {% endblock %}
 
 {% block script %}
@@ -53,14 +58,17 @@ $.ajaxSetup({
         }
     }
 });
+
             $.ajax({
               url: "{% url 'process' %}",
               type: 'post',
               data: {
                 //csrfmiddlewaretoken:{{ csrf_token }},
                 stripeToken: token.id,
-                end_time:$("#datepicker2").val(),
-                start_time:$("#datepicker1").val(),
+
+                start_data: total_start,
+                end_data: total_end,
+
                 spot_id:{{ id }},
               },
               dataType: 'json',
@@ -76,11 +84,21 @@ $.ajaxSetup({
           }
         });
         document.getElementById('customButton').addEventListener('click', function(e) {
+var today = new Date();
+var total_start = $("#datepicker1").val() + ' ' + $("#timepicker1").val();
+var total_end = $("#datepicker2").val() + ' ' + $("#timepicker2").val();
+var total_res_time = (Date.parse(total_end) - Date.parse(total_start)) / 60000 * {{space.parkingPrice}}  / 60 * 100;
+console.log(Date.parse(total_start)-Date.parse(today));
+if(total_res_time < 1 || !total_res_time || (Date.parse(today) - Date.parse(total_start)) > 0) {
+    $('#date-error').css("display","block");
+    return;
+}
+$('#date-error').css("display","none");
           // Open Checkout with further options:
           handler.open({
             name: 'ParkR',
             description: 'Finalize your reservation',
-            amount: {{space.parkingPrice}} * 100,
+            amount: total_res_time,
           });
           e.preventDefault();
         });
