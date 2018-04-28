@@ -22,6 +22,7 @@ def new_space(request):
         listing = ParkingSpace(owner=request.user)
         form = ListingForm(instance=listing, data=request.POST)
         if form.is_valid():
+            print(request.POST)
             instance = form.save(commit=False)
             address = form.cleaned_data['address']
             geocode_result = gmaps.geocode(address)
