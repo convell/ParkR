@@ -1,7 +1,4 @@
 version: 2
-machine:
-  python:
-    version: 3.6.1
 jobs:
   build:
     working_directory: ~/circleci-demo-python-django
