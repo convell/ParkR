@@ -29,8 +29,7 @@ jobs:
             - "/usr/local/lib/python3.6/site-packages"
       - run:
           command: |
-            pipenv shell
-            python manage.py test
+            pipenv run python manage.py test
       - store_test_results:
           path: test-results
       - store_artifacts:
