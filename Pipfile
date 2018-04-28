@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[requires]
+python_version = "3.5"
+
+[packages]
+"beautifulsoup4" = "*"
+django-crispy-forms = "*"
+"html5lib" = "*"
+netifaces = "*"
+requests = "*"
+stripe = "*"
+googlemaps = "*"
+"django-bootstrap3-datetimepicker-2" = "*"
+django-model-utils = "*"
+django-channels = "*"
+websockets = "*"
+django-braces = "*"
+asyncio = "*"
+django-private-chat = "*"
+Django = "*"
+
+[dev-packages]
