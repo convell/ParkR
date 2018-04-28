@@ -1,5 +1,5 @@
 beautifulsoup4
-Django
+Django == 2.0.1
 django-crispy-forms
 html5lib
 netifaces
