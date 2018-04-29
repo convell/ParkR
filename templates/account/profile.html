@@ -10,7 +10,9 @@ Welcome
             <h1>Hello, {{ request.user.username }}</h1>
             <a href="{% url 'new_space' %}" class="btn btn-light tbLink">List a parking space</a>
             <a href="{% url 'reservation_history' %}" class="btn btn-light tbLink">Reservation history</a>
+            <a href="{% url 'update_profile' %}" class="btn btn-light tbLink">Update your bio</a>
             <a href="{% url 'user_password' %}" class="btn btn-light tbLink">Change password</a><br><br>
+            <p>Biography: {{request.user.profile.bio}}</p>
             <p>View your current parking spaces:</p>
             {% if owned_spaces %}
 <div class="list-group">
