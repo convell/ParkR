@@ -19,7 +19,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django_private_chat import urls as django_private_chat_urls
 
 from .views import home
-from listing.views import delete_space
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
