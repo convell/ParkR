@@ -30,10 +30,6 @@ def information(request, id):
                                                            'address': address})
 
 
-# not being used -- saving for reference
-@login_required()
-def new_reservation(request, id):
-    return render(request, "reservation/reserve_form.html", {"id": id})
 
 
 @login_required()
@@ -69,3 +65,13 @@ def process(request):
     }
 
     return JsonResponse(out)
+
+
+@login_required()
+def delete_reservation(request, id):
+    reservation = get_object_or_404(Reservation, pk=id)
+    reservation.delete()
+
+    reserved_spaces = Reservation.objects.filter(reserved_user=request.user)
+
+    return render(request, 'reservation/reservation_history.html', {'reserved_spaces': reserved_spaces})
