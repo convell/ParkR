@@ -30,8 +30,6 @@ def information(request, id):
                                                            'address': address})
 
 
-
-
 @login_required()
 def reservation_history(request):
     reserved_spaces = Reservation.objects.filter(reserved_user=request.user)

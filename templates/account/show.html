@@ -4,6 +4,7 @@
     <div class="jumbotron">
         <div class="container">
             <h1>More about {{showUser}}...</h1>
+            <p>{{showUser.profile.bio}}</p>
             {% if showUser != request.user %}
             <a href="/dialogs/{{showUser}}" class="btn btn-light tbLink">Contact host</a>
             <a href="{% url 'leave_review' id=showUser.id %}" class="btn btn-light tbLink">Leave a review for {{showUser}}</a><br><br>
