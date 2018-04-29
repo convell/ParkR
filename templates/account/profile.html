@@ -8,24 +8,53 @@ Welcome
     <div class="jumbotron">
         <div class="container">
             <h1>Hello, {{ request.user.username }}</h1>
-            <a href="{% url 'new_space' %}" class="tbLink">List a parking space</a>
-            <a href="{% url 'reservation_history' %}" class="tbLink">Reservation history</a>
-            <a href="{% url 'user_password' %}" class="tbLink">Change password</a><br><br>
+            <a href="{% url 'new_space' %}" class="btn btn-light tbLink">List a parking space</a>
+            <a href="{% url 'reservation_history' %}" class="btn btn-light tbLink">Reservation history</a>
+            <a href="{% url 'user_password' %}" class="btn btn-light tbLink">Change password</a><br><br>
             <p>View your current parking spaces:</p>
             {% if owned_spaces %}
-                <div class="list-group">
+<div class="list-group">
                     {% for s in owned_spaces %}
-                        <a class="list-group-item"
-                           href="{% url 'reservation_info' id=s.id %}">
-                            {{ s.note }}
-                        </a>
+                    <div class="row">
+
+                        <div class="col-md-9">
+                            <a class="list-group-item" href="{% url 'reservation_info' id=s.id %}">{{ s.note }}</a>
+                        </div>
+
+                        <div class="col-md-3">
+                        <button class="btn btn-light btn-sm tbLink" data-toggle="modal" data-target="#{{s.id}}">
+                          Remove this parking space
+                        </button>
+                        </div>
+
+
+                    </div>
+                        <div class="modal fade" id="{{s.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Remove your parking space</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Are you sure you want to remove this parking space? This action cannot be undone.
+                                  </div>
+                                  <div class="modal-footer">
+                                    <a href="{% url 'delete_space' id=s.id %}" class="btn btn-light tbLink">Remove</a>
+                                    <button type="button" class="btn btn-light tbLink" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
                     {% endfor %}
-                </div>
+</div>
 
             {% else %}
                 <p>You have no spaces listed.</p>
             {% endif %}
-            <a href="{% url 'user_show' id=user.id %}" class="tbLink">View my profile</a>
+            <a href="{% url 'user_show' id=user.id %}" class="btn btn-light tbLink">View my profile</a>
         </div>
     </div>
 {% endblock %}

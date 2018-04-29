@@ -13,16 +13,22 @@ Welcome
                 <div class="list-group">
                     {% for r in reserved_spaces reversed %}
                         <li class="list-group-item">
-                            <button type="button" class="btn btn-primary" style="float:right; margin-left:5px;" data-toggle="modal" data-target="#exampleModal">
-                              Report this space
-                            </button>
-                            <button type="button" class="btn btn-primary" style="float:right;" data-toggle="modal" data-target="#{{r.id}}">
-                              Delete this reservation
-                            </button>
-                            <a href="{% url 'reservation_info' id=r.reserved_space.id %}">{{ r.reserved_space.note }}</a><br>
-                            <b>Reservation window:</b> {{r.start_time}} - {{r.end_time}} <br>
-                            <b>Owner:</b> <a href="{% url 'user_show' id=r.reserved_space.owner.id %}">{{r.reserved_space.owner}}</a><br>
-                            <b>Reserved on:</b> {{r.processed_time}} UTC<br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="{% url 'reservation_info' id=r.reserved_space.id %}">{{ r.reserved_space.note }}</a><br>
+                                    <b>Reservation window:</b> {{r.start_time}} - {{r.end_time}} <br>
+                                    <b>Owner:</b> <a href="{% url 'user_show' id=r.reserved_space.owner.id %}">{{r.reserved_space.owner}}</a><br>
+                                    <b>Reserved on:</b> {{r.processed_time}} UTC<br>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-light tbLink" style="float:right; margin-left:5px;" data-toggle="modal" data-target="#exampleModal">
+                                      Report this space
+                                    </button>
+                                    <button type="button" class="btn btn-light tbLink" style="float:right;" data-toggle="modal" data-target="#{{r.id}}">
+                                      Delete this reservation
+                                    </button>
+                                </div>
+                            </div>
                         </li>
 
                         <div class="modal fade" id="{{r.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -35,11 +41,11 @@ Welcome
                                 </button>
                               </div>
                               <div class="modal-body">
-                                Are you sure you want to delete this reservation?
+                                Are you sure you want to delete this reservation? This action cannot be undone.
                               </div>
                               <div class="modal-footer">
-                                <a href="{% url 'delete_reservation' id=r.id %}" class="btn btn-primary">Delete</a>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a href="{% url 'delete_reservation' id=r.id %}" class="btn btn-light tbLink">Delete</a>
+                                <button type="button" class="btn btn-light tbLink" data-dismiss="modal">Close</button>
                               </div>
                             </div>
                           </div>
@@ -50,7 +56,7 @@ Welcome
             {% else %}
                 <p>You have no spaces reserved.</p>
             {% endif %}
-            <a href="{% url 'user_show' id=user.id %}" class="tbLink">View my profile</a>
+            <a href="{% url 'user_show' id=user.id %}" class="btn btn-light tbLink">View my profile</a>
         </div>
     </div>
 
@@ -68,8 +74,8 @@ Welcome
         Are you sure you want to report this space?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#reportModal">Report</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-light tbLink" data-dismiss="modal" data-toggle="modal" data-target="#reportModal">Report</button>
+        <button type="button" class="btn btn-light tbLink" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -89,7 +95,7 @@ Welcome
         Your report has been submitted.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-light tbLink" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

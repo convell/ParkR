@@ -24,7 +24,6 @@ from listing.views import delete_space
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', home, name="parkr_home"),
-    url(r'deleted_space/(?P<id>\d+)/$', delete_space, name="delete_space"),
     url(r'^account/', include('account.urls')),
     url(r'^list/', include('listing.urls')),
     url(r'^reserve/', include('reservation.urls')),
