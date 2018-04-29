@@ -38,12 +38,10 @@ body {
 
 .tbLink {
     background:#fff;
-    padding: 7px 9px;
     color: #591818;
     border: 2px solid #591818;
-    border-radius: 4px;
-    transition: all 0.2s ease;
     letter-spacing: 2px;
+    margin: 2px;
 }
 
 .tbLink:hover {

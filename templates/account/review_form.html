@@ -13,8 +13,8 @@ Welcome
             {% csrf_token %}
 
             {{ form|crispy }}
-            <button type="submit " class="tbLink">Leave Review</button>
+            <button type="submit " class="btn btn-light tbLink">Leave Review</button>
         </form>
-        <br><a href="{% url 'user_show' id=id %}" class="tbLink">Return to user's profile</a>
+        <br><a href="{% url 'user_show' id=id %}" class="btn btn-light tbLink">Return to user's profile</a>
     </div>
 {% endblock %}

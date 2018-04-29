@@ -19,7 +19,7 @@
                 <p>{{showUser}} currently has no spaces listed.</p>
             {% endif %}
             {% if showUser != request.user %}
-            <br><a href="{% url 'leave_review' id=showUser.id %}" class="tbLink">Leave a review for {{showUser}}</a>
+            <br><a href="{% url 'leave_review' id=showUser.id %}" class="btn btn-light tbLink">Leave a review for {{showUser}}</a>
             {% endif %}
             <br><br><br><h3>Reviews:</h3>
             {% if reviews %}

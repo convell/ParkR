@@ -25,18 +25,18 @@
                   Please select a valid start and end time.
                 </div>
                 <br>
-                <button id="customButton" class="tbLink"
+                <button id="customButton" class="btn btn-light tbLink"
                   style="padding: 6px;">Continue to Payment</button>
-                <a href="{% url 'parkr_home' %}" class="tbLink"
+                <a href="{% url 'parkr_home' %}" class="btn btn-light tbLink"
                   style="margin-left:20px;">Return Home</a>
                 <input type="hidden" value="{{id}}" id="spot_id">
 
             {% else %}
 
-                <button type="button" class="tbLink" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" class="btn btn-light tbLink" data-toggle="modal" data-target="#exampleModal">
                    Delete this space
                 </button>
-                <a href="{% url 'parkr_home' %}" class="tbLink"
+                <a href="{% url 'parkr_home' %}" class="btn btn-light tbLink"
                   style="margin-left:20px;">Return Home</a>
                 <input type="hidden" value="{{id}}" id="spot_id">
 

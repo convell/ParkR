@@ -45,21 +45,5 @@ def delete_space(request, id):
     parking_space = get_object_or_404(ParkingSpace, pk=id)
     parking_space.delete()
 
-    latlngList = []
-    noteList = []
-    pidList = []
-    allObjects = ParkingSpace.objects.all()
-    for result in allObjects.values():
-        lat = result.get("lat")
-        lng = result.get("lng")
-        note = result.get("note")
-        pid = int(result.get("id"))
-        latlng = {"lat": float(lat), "lng": float(lng)}
-        pidList.append(pid)
-        latlngList.append(latlng)
-        noteList.append(note)
-    jsonList = json.dumps(latlngList)
-    noteList = json.dumps(noteList)
-    pidList = json.dumps(pidList)
-
-    return render(request, 'ParkR/home.html', {"djangoMapMarkers": jsonList, "notes": noteList, "pidList": pidList})
+    spaces = ParkingSpace.objects.filter(owner=request.user)
+    return render(request, 'account/profile.html', {'owned_spaces': spaces})
