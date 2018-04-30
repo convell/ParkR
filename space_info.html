@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+    <div class="jumbotron">
+        <div class="container">
+            <h2>More about <a href="{% url 'user_show' id=owner.id %}">{{space.owner}}'s</a> space...</h2>
+            <p>Location: {{address}} </p>
+            <p>Information: {{space.note}}</p>
+            <p>Rates: ${{space.parkingPrice}}.00 per hour</p>
+            <a input type="hidden" value="{{id}}" id="spot_id"></a>
+            <p>Reservation start: <input type="date" id="datepicker1"><input type="time"></p>
+            <p>Reservation end: <input type="date" id="datepicker2"><input type="time"></p>
+            <button id="customButton" class="tbLink">Purchase</button>
+            <br><br><a href="{% url 'parkr_home' %}" class="tbLink">Return to home</a>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    {{ block.super }}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+
+    <script>
+        var handler = StripeCheckout.configure({
+          key: 'pk_test_MKfo1zMYDA0i0ITx5kjkAcwK',
+          image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+          locale: 'auto',
+          token: function(token) {
+            $.ajax({
+              url: "{% url 'process' %}",
+              type: 'post',
+              data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                stripeToken: token.id,
+                end_time:$("#datepicker2").val(),
+                start_time:$("#datepicker1").val(),
+                spot_id:{{id}},
+              },
+              dataType: 'json',
+              success: function() { console.log("hell yeah") },
+              error: function() {window.location.replace("/account/profile")}
+            });
+          }
+        });
+
+        document.getElementById('customButton').addEventListener('click', function(e) {
+          // Open Checkout with further options:
+          handler.open({
+            name: 'ParkR',
+            description: 'Finalize your reservation',
+            amount: {{space.parkingPrice}} * 100,
+          });
+          e.preventDefault();
+
+        });
+
+        // Close Checkout on page navigation:
+        window.addEventListener('popstate', function() {
+          handler.close();
+        });
+     </script>
+
+{% endblock %}
+
+
