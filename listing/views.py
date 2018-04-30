@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 import googlemaps
 import json
 import os
@@ -22,6 +22,7 @@ def new_space(request):
         listing = ParkingSpace(owner=request.user)
         form = ListingForm(instance=listing, data=request.POST)
         if form.is_valid():
+            print(request.POST)
             instance = form.save(commit=False)
             address = form.cleaned_data['address']
             geocode_result = gmaps.geocode(address)
@@ -37,3 +38,12 @@ def new_space(request):
     else:
         form = ListingForm()
     return render(request, "listing/new_space_form.html", {'form': form})
+
+
+@login_required()
+def delete_space(request, id):
+    parking_space = get_object_or_404(ParkingSpace, pk=id)
+    parking_space.delete()
+
+    spaces = ParkingSpace.objects.filter(owner=request.user)
+    return render(request, 'account/profile.html', {'owned_spaces': spaces})

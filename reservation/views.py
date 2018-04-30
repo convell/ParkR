@@ -30,12 +30,6 @@ def information(request, id):
                                                            'address': address})
 
 
-# not being used -- saving for reference
-@login_required()
-def new_reservation(request, id):
-    return render(request, "reservation/reserve_form.html", {"id": id})
-
-
 @login_required()
 def reservation_history(request):
     reserved_spaces = Reservation.objects.filter(reserved_user=request.user)
@@ -54,7 +48,7 @@ def process(request):
     if request.user.is_authenticated:
         parking_space = get_object_or_404(ParkingSpace, pk=int(request.POST['spot_id']))
         reservation = Reservation(reserved_user=request.user, reserved_space=parking_space,
-                                  start_time=request.POST['start_time'], end_time=request.POST['end_time'])
+                                  start_time=request.POST['start_data'], end_time=request.POST['end_data'])
         reservation.save()
 
         charge = processPayment(request.POST['stripeToken'], "1000");
@@ -69,3 +63,13 @@ def process(request):
     }
 
     return JsonResponse(out)
+
+  
+@login_required()
+def delete_reservation(request, id):
+    reservation = get_object_or_404(Reservation, pk=id)
+    reservation.delete()
+
+    reserved_spaces = Reservation.objects.filter(reserved_user=request.user)
+
+    return render(request, 'reservation/reservation_history.html', {'reserved_spaces': reserved_spaces})
