@@ -14,3 +14,4 @@ django-braces
 asyncio
 django-private-chat
 social-auth-app-django
+Pillow
