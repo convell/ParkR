@@ -34,9 +34,8 @@
                     <li><a href="https://weareparkr.wordpress.com/" target="_blank">About</a></li>
                     <li><a href="https://weareparkr.wordpress.com/contact/" target="_blank">Contact</a></li>
                   {% if user.is_authenticated %}
-                    <li><a href="javascript:void(0);">
-                      <span class="glyphicon glyphicon-user"
-                        onClick="openNav()"></span>
+                    <li><a href="javascript:openNav();">
+                      <span class="glyphicon glyphicon-user"></span>
                     </a></li>
                   {% else %}
                     <li><a href="{% url 'user_signup' %}" style="padding:9px 8px;">
@@ -79,12 +78,14 @@
         {
           document.getElementById("mySidenav").style.width = "250px";
           document.getElementById("main").style.marginRight = "250px";
+          $('.add-message').css({"transition":"0.5s","margin-right":"250px"});
         }
 
         function closeNav()
         {
           document.getElementById("mySidenav").style.width = "0";
           document.getElementById("main").style.marginRight = "0";
+          $('.add-message').css("margin-right", "0");
         }
         </script>
         {% endblock %}

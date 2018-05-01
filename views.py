@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from listing.models import ParkingSpace
 from .models import Reservation
 from .functions import *
 import json, googlemaps
+
 
 fromFile = True
 
@@ -14,7 +15,6 @@ if fromFile == True:
         gmaps = googlemaps.Client(key=creds["google-api"])
 else:
     gmaps = googlemaps.Client(key=os.environ['GOOGLE'])
-
 
 def information(request, id):
     space = get_object_or_404(ParkingSpace, pk=id)
@@ -28,6 +28,12 @@ def information(request, id):
                                                            'space': space,
                                                            'owner': space_owner,
                                                            'address': address})
+
+
+# not being used -- saving for reference
+@login_required()
+def new_reservation(request, id):
+    return render(request, "reservation/reserve_form.html", {"id": id})
 
 
 @login_required()
@@ -48,28 +54,7 @@ def process(request):
     if request.user.is_authenticated:
         parking_space = get_object_or_404(ParkingSpace, pk=int(request.POST['spot_id']))
         reservation = Reservation(reserved_user=request.user, reserved_space=parking_space,
-                                  start_time=request.POST['start_data'], end_time=request.POST['end_data'])
+                                  start_time=request.POST['start_time'], end_time=request.POST['end_time'])
         reservation.save()
 
         charge = processPayment(request.POST['stripeToken'], "1000");
-
-        print("res", charge)
-
-        if charge is not "false":
-            return HttpResponse('payment/process.html')
-
-    out = {
-      "route": "reservation_receipt"
-    }
-
-    return JsonResponse(out)
-
-  
-@login_required()
-def delete_reservation(request, id):
-    reservation = get_object_or_404(Reservation, pk=id)
-    reservation.delete()
-
-    reserved_spaces = Reservation.objects.filter(reserved_user=request.user)
-
-    return render(request, 'reservation/reservation_history.html', {'reserved_spaces': reserved_spaces})

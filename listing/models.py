@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 import googlemaps
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 # Create your models here.
@@ -18,4 +19,4 @@ class ParkingSpace(models.Model):
     note = models.CharField(max_length=300)
     timeOpen = models.CharField(max_length=300, default="0")
     timeClose = models.CharField(max_length=300, default="0")
-    parkingPrice = models.CharField(max_length=300)
+    parkingPrice = models.IntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)])

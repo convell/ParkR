@@ -1,72 +1,149 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-
 {% block content %}
-
-    <div class="jumbotron">
+      <center><h1>Parking Space Information</h1></center>
+      <div class="chasebox">
         <div class="container">
-            <h2>More about <a href="{% url 'user_show' id=owner.id %}">{{space.owner}}'s</a> space...</h2>
-            <p>Location: {{address}} </p>
-            <p>Information: {{space.note}}</p>
-            <p>Rates: ${{space.parkingPrice}}.00 per hour</p>
-            <a input type="hidden" value="{{id}}" id="spot_id"></a>
-            <p>Reservation start: <input type="date" id="datepicker1"><input type="time"></p>
-            <p>Reservation end: <input type="date" id="datepicker2"><input type="time"></p>
-            <button id="customButton" class="tbLink">Purchase</button>
-            <br><br><a href="{% url 'parkr_home' %}" class="tbLink">Return to home</a>
-        </div>
-    </div>
-{% endblock %}
+            <h2><a href="{% url 'user_show' id=owner.id %}">{{space.owner}}</a>'s space</h2>
+            <br>
+            <p><b>Location:</b> {{address}}</p>
+            <p><b>Information:</b> {{space.note}}</p>
+            <p><b>Rate:</b> ${{space.parkingPrice}} per hour</p>
+            <br>
 
+            {% if request.user != space.owner %}
+
+                <p><b>Reservation start:</b>
+                <br>
+                <input type="date" id="datepicker1"><input type="time" id="timepicker1"></p>
+                <p><b>Reservation end:</b>
+                <br>
+                <input type="date" id="datepicker2"><input type="time" id="timepicker2"></p>
+                <br>
+                <div id="date-error" style="color:red;">
+                  Please select a valid start and end time.
+                </div>
+                <br>
+                <button id="customButton" class="btn btn-light tbLink"
+                  style="padding: 6px;">Continue to Payment</button>
+                <a href="{% url 'parkr_home' %}" class="btn btn-light tbLink"
+                  style="margin-left:20px;">Return Home</a>
+                <input type="hidden" value="{{id}}" id="spot_id">
+
+            {% else %}
+
+                <button type="button" class="btn btn-light tbLink" data-toggle="modal" data-target="#exampleModal">
+                   Delete this space
+                </button>
+                <a href="{% url 'parkr_home' %}" class="btn btn-light tbLink"
+                  style="margin-left:20px;">Return Home</a>
+                <input type="hidden" value="{{id}}" id="spot_id">
+
+            {% endif %}
+
+        </div>
+      </div>
+
+{% endblock %}
 
 {% block script %}
     {{ block.super }}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://checkout.stripe.com/checkout.js"></script>
 
     <script>
+
+var csrftoken = Cookies.get('csrftoken');
         var handler = StripeCheckout.configure({
           key: 'pk_test_MKfo1zMYDA0i0ITx5kjkAcwK',
           image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
           locale: 'auto',
           token: function(token) {
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
             $.ajax({
               url: "{% url 'process' %}",
               type: 'post',
               data: {
-                csrfmiddlewaretoken: '{{ csrf_token }}',
+                //csrfmiddlewaretoken:{{ csrf_token }},
                 stripeToken: token.id,
-                end_time:$("#datepicker2").val(),
-                start_time:$("#datepicker1").val(),
-                spot_id:{{id}},
+
+                start_data: $("#datepicker1").val() + ' ' + $("#timepicker1").val(),
+                end_data: $("#datepicker2").val() + ' ' + $("#timepicker2").val(),
+
+                spot_id:{{ id }},
               },
               dataType: 'json',
-              success: function() { console.log("hell yeah") },
-              error: function() {window.location.replace("/account/profile")}
+              success: function(data) {
+                console.log("Success:",data.route);
+                window.location.replace(data.route)
+              },
+              error: function(data) {
+                console.log("Failed");
+                console.log(data);
+              }
             });
           }
         });
-
         document.getElementById('customButton').addEventListener('click', function(e) {
+var today = new Date();
+var total_start = $("#datepicker1").val() + ' ' + $("#timepicker1").val();
+var total_end = $("#datepicker2").val() + ' ' + $("#timepicker2").val();
+var total_res_time = (Date.parse(total_end) - Date.parse(total_start)) / 60000 * {{space.parkingPrice}}  / 60 * 100;
+
+if(total_res_time < 1 || !total_res_time || (Date.parse(today) - Date.parse(total_start)) > 0) {
+    $('#date-error').css("display","block");
+    return;
+}
+$('#date-error').css("display","none");
           // Open Checkout with further options:
           handler.open({
             name: 'ParkR',
             description: 'Finalize your reservation',
-            amount: {{space.parkingPrice}} * 100,
+            amount: total_res_time,
           });
           e.preventDefault();
-
         });
-
         // Close Checkout on page navigation:
         window.addEventListener('popstate', function() {
           handler.close();
         });
      </script>
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete this space</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this space?
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'delete_space' id=space.id %}" class="btn btn-primary">Delete</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
-
-

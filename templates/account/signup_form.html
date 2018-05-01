@@ -17,7 +17,12 @@
 
             {{ form|crispy }}
 
-            <button type="submit" class="btn btn-success">Sign up</button>
+            <button type="submit" class="btn btn-light tbLink">Sign up</button>
+            <br>
+	        <p><strong>-- OR --</strong></p>
+	        <a href="{% url 'social:begin' 'github' %}">Sign up with GitHub</a><br>
+	        <a href="{% url 'social:begin' 'facebook' %}">Sign up with Facebook</a><br>
+	        <a href="{% url 'social:begin' 'google-oauth2' %}">Sign up with Google</a><br>
         </form>
     </div>
 
