@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Welcome
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h4>How was communication with the host? Was the parking space as described? Let others know!</h4>
+        <form method="post" action="{% url 'leave_review' id=id %}">
+
+            {% csrf_token %}
+
+            {{ form|crispy }}
+            <button type="submit " class="btn btn-light tbLink">Leave Review</button>
+        </form>
+        <br><a href="{% url 'user_show' id=id %}" class="btn btn-light tbLink">Return to user's profile</a>
+    </div>
+{% endblock %}
