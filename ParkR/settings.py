@@ -32,6 +32,11 @@ STATICFILES_DIRS = [
     '/var/www/static/',
 ]
 # Application definition
+
+CHAT_WS_SERVER_HOST = '0.0.0.0'
+CHAT_WS_SERVER_PORT = 5003
+CHAT_WS_SERVER_PROTOCOL = 'wss'
+
 LOGIN_URL = 'user_login'
 LOGOUT_URL = 'user_logout'
 LOGIN_REDIRECT_URL = 'parkr_home'
@@ -42,9 +47,7 @@ SOCIAL_AUTH_FACEBOOK_KEY = '848403742012314'
 SOCIAL_AUTH_FACEBOOK_SECRET = 'f6e8214fa70ba968a29071e56848c8bc'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '614705765677-hkda84gbhniqchagmn1dnvbe8ipbd1g0.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'jXSEnXlIV_fzf9nhDEuAP1-u'
-CHAT_WS_SERVER_HOST = 'localhost'
-CHAT_WS_SERVER_PORT = 5002
-CHAT_WS_SERVER_PROTOCOL = 'ws'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

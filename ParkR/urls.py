@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django_private_chat import urls as django_private_chat_urls
 
-from .views import home
+from .views import home, privacy
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^payment/', include('payment.urls')),
     url(r'^', include('django_private_chat.urls')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url(r'^privacy/', privacy, name="parkr_privacy"),
 ]
 urlpatterns += staticfiles_urlpatterns()
