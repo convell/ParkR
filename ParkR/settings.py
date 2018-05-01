@@ -33,9 +33,21 @@ STATICFILES_DIRS = [
 ]
 # Application definition
 
-CHAT_WS_SERVER_HOST = 'localhost'
-CHAT_WS_SERVER_PORT = 5002
-CHAT_WS_SERVER_PROTOCOL = 'ws'
+CHAT_WS_SERVER_HOST = '0.0.0.0'
+CHAT_WS_SERVER_PORT = 5003
+CHAT_WS_SERVER_PROTOCOL = 'wss'
+
+LOGIN_URL = 'user_login'
+LOGOUT_URL = 'user_logout'
+LOGIN_REDIRECT_URL = 'parkr_home'
+
+SOCIAL_AUTH_GITHUB_KEY = '533134465b608bad3795'
+SOCIAL_AUTH_GITHUB_SECRET = 'efdb772cf72f3ac366f6d2890a89f98f544ea6ce'
+SOCIAL_AUTH_FACEBOOK_KEY = '848403742012314'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'f6e8214fa70ba968a29071e56848c8bc'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '614705765677-hkda84gbhniqchagmn1dnvbe8ipbd1g0.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'jXSEnXlIV_fzf9nhDEuAP1-u'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,7 +63,8 @@ INSTALLED_APPS = [
     'payment',
     'crispy_forms',
     'bootstrap3_datetime',
-    'django_private_chat'
+    'django_private_chat',
+    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -62,6 +75,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'ParkR.urls'
@@ -77,6 +91,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect'
             ],
         },
     },
@@ -114,7 +130,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth',
+    'django.contrib.auth.backends.ModelBackend',
+)
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 

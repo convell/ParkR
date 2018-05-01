@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 
 from listing.models import ParkingSpace, User
-from .forms import ReviewsForm
+from .forms import ReviewsForm, ProfileForm
 from .models import Reviews
 
 
@@ -24,8 +24,20 @@ def show(request, id):
                   "account/show.html",
                   {'owned_spaces': spaces,
                    'showUser': showUser,
-                   'reviews' :reviews}
+                   'reviews':reviews}
                   )
+
+
+@login_required
+def update_profile(request):
+    if request.method == "POST":
+        form = ProfileForm(instance=request.user.profile, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile')
+    else:
+        form = ProfileForm()
+    return render(request, 'account/update_profile.html', {'form': form})
 
 
 @login_required

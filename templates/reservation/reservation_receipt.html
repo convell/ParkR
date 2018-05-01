@@ -7,9 +7,9 @@ Welcome
 {% block content %}
     <div class="jumbotron">
         <div class="container">
-            <h1>Hello, {{ request.user.username }}</h1>
-            <a href="{% url 'reservation_history'  %}" class="tbLink">Go to my reservation history</a>
-            <a href="{% url 'parkr_home'  %}" class="tbLink">Reserve another parking space!</a>
+            <h2>Thank you for your reservation</h2><br>
+            <a href="{% url 'reservation_history'  %}" class="btn btn-light tbLink">Go to my reservation history</a><br><br>
+            <a href="{% url 'parkr_home'  %}" class="btn btn-light tbLink">Reserve another parking space!</a>
         </div>
     </div>
 {% endblock %}

@@ -23,3 +23,6 @@ def home(request):
     pidList = json.dumps(pidList)
 
     return render(request, 'ParkR/home.html', {"djangoMapMarkers":jsonList,"notes":noteList, "pidList":pidList})
+
+def privacy(request):
+    return render(request, 'account/privacypolicy.htm')
