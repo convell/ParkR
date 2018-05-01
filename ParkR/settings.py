@@ -33,9 +33,9 @@ STATICFILES_DIRS = [
 ]
 # Application definition
 
-CHAT_WS_SERVER_HOST = 'localhost'
-CHAT_WS_SERVER_PORT = 5002
-CHAT_WS_SERVER_PROTOCOL = 'ws'
+CHAT_WS_SERVER_HOST = '0.0.0.0'
+CHAT_WS_SERVER_PORT = 5003
+CHAT_WS_SERVER_PROTOCOL = 'wss'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
