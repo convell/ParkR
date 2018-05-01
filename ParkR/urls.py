@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^reserve/', include('reservation.urls')),
     url(r'^payment/', include('payment.urls')),
     url(r'^', include('django_private_chat.urls')),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
 ]
 urlpatterns += staticfiles_urlpatterns()
