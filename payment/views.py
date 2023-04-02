@@ -8,7 +8,7 @@ def payment(request):
     return render(request, 'payment/payment.html', out)
 
 def process(request):
-    stripe.api_key = "***REMOVED***"
+    stripe.api_key = "UGHNOTREAL"
     cost = "499" #where to pull this cost from...
 #    if request.user.is_authenticated():
 

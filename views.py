@@ -49,7 +49,7 @@ def reservation_receipt(request):
 
 @login_required()
 def process(request):
-    stripe.api_key = "***REMOVED***"
+    stripe.api_key = "UGHNOTREAL"
 
     if request.user.is_authenticated:
         parking_space = get_object_or_404(ParkingSpace, pk=int(request.POST['spot_id']))
